@@ -36,15 +36,14 @@ public class BookViewModel extends ViewModel {
             @Override
             public void onResponse(Call<BookSearchResult> call, Response<BookSearchResult> response) {
                 if (response.isSuccessful()) {
-                    booksLiveData.setValue(response.body().getBooks());
-                    Log.d("response", "Response Successful : " + response.body().getTotalItems().toString() + " items");
+                    booksLiveData.postValue( response.body().getBooks());
+                    Log.d("response", "Response Successful : " + response.body().getBooks().size() + " items");
                 } else try {
                     Log.d("response", "Response Error: " + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(Call<BookSearchResult> call, Throwable t) {
                 t.printStackTrace();
