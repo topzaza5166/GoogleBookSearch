@@ -1,4 +1,4 @@
-package com.aapico.powermap.googlebooksearch;
+package com.aapico.powermap.googlebooksearch.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -51,7 +51,7 @@ public class BookViewModel extends ViewModel {
         });
     }
 
-    LiveData<List<Book>> getBook() {
+    public LiveData<List<Book>> getBook() {
         if (booksLiveData == null) {
             booksLiveData = new MutableLiveData<>();
             searchBook("Android");

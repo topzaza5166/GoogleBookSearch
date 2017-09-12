@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
 
     <data>
 
-        <variable
-            name="bookSaleInfo"
-            type="com.aapico.powermap.googlebooksearch.dao.SaleInfo" />
+        <import type="com.aapico.powermap.googlebooksearch.util.StringConstants" />
 
         <variable
-            name="bookVolumeInfo"
-            type="com.aapico.powermap.googlebooksearch.dao.VolumeInfo" />
+            name="clickHandler"
+            type="com.aapico.powermap.googlebooksearch.util.ClickHandler" />
+
+        <variable
+            name="book"
+            type="com.aapico.powermap.googlebooksearch.dao.Book" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layout_ripple"
+        android:onClick="@{clickHandler.onClick}"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                app:imageUrl="@{book.volumeInfo.imageLinks.thumbnail}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{String.valueOf(bookSaleInfo.listPrice)}"
+                android:text="@{book.saleInfo.saleability.equals(StringConstants.FOR_SALE) ? String.valueOf(book.saleInfo.listPrice.amount) : @string/not_for_sale}"
                 tool:text="Price" />
 
         </LinearLayout>
@@ -46,7 +54,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{bookVolumeInfo.title}"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{book.volumeInfo.title}"
                 android:textStyle="bold"
                 tool:text="Title" />
 
@@ -59,19 +69,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{bookVolumeInfo.categories.get(0)}"
+                    android:text="@{book.volumeInfo.categories.get(0)}"
                     tool:text="Category" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{bookVolumeInfo.maturityRating}"
+                    android:text="@{book.volumeInfo.maturityRating}"
                     tool:text="Rating" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{bookVolumeInfo.publishedDate}"
+                    android:text="@{book.volumeInfo.publishedDate}"
                     tool:text="Date" />
 
             </LinearLayout>

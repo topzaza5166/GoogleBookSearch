@@ -1,4 +1,4 @@
-package com.aapico.powermap.googlebooksearch;
+package com.aapico.powermap.googlebooksearch.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aapico.powermap.googlebooksearch.util.ClickHandler;
+import com.aapico.powermap.googlebooksearch.R;
 import com.aapico.powermap.googlebooksearch.dao.Book;
 import com.aapico.powermap.googlebooksearch.databinding.BookListItemBinding;
 
@@ -37,11 +39,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookItemViewHo
 
     @Override
     public int getItemCount() {
-        return books.size();
+        return books != null ? books.size() : 0;
     }
 
     public void setBooks(List<Book> books) {
         this.books = books;
+        notifyDataSetChanged();
     }
 
     public class BookItemViewHolder extends RecyclerView.ViewHolder {
@@ -54,8 +57,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookItemViewHo
         }
 
         public void bind(Book book) {
-            binding.setBookSaleInfo(book.getSaleInfo());
-            binding.setBookVolumeInfo(book.getVolumeInfo());
+            binding.setBook(book);
+            binding.setClickHandler(new ClickHandler(book));
+            binding.executePendingBindings();
         }
     }
 }

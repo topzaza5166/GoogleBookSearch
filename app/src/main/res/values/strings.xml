@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GoogleBookSearch</string>
+    <string name="for_sale">FOR_SALE</string>
+    <string name="not_for_sale">not for sale</string>
 </resources>
