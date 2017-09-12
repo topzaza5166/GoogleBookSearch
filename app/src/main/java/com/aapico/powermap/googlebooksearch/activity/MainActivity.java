@@ -15,6 +15,7 @@ import com.aapico.powermap.googlebooksearch.viewmodel.BookViewModel;
 import com.aapico.powermap.googlebooksearch.R;
 import com.aapico.powermap.googlebooksearch.dao.Book;
 import com.aapico.powermap.googlebooksearch.databinding.ActivityMainBinding;
+import com.aapico.powermap.googlebooksearch.viewmodel.BookViewModelFactory;
 
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class MainActivity extends LifecycleActivity {
 
         binding.buttonClick.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {bookViewModel.searchBook("IOS");
+            public void onClick(View view) {
+                bookViewModel.searchBook("IOS");
             }
         });
     }
@@ -45,10 +47,11 @@ public class MainActivity extends LifecycleActivity {
 
         binding.listTitle.setAdapter(adapter);
 
-        bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
+        bookViewModel = ViewModelProviders.of(this, new BookViewModelFactory()).get(BookViewModel.class);
         bookViewModel.getBook().observe(this, new Observer<List<Book>>() {
             @Override
-            public void onChanged(@Nullable List<Book> books) {adapter.setBooks(books);
+            public void onChanged(@Nullable List<Book> books) {
+                adapter.setBooks(books);
             }
         });
     }
